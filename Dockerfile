@@ -9,6 +9,7 @@ RUN apt-get -qq update && \
     apt-get install -y apt-transport-https \
                    ca-certificates \
                    software-properties-common \
+                   apt-utils \
                    man \
                    manpages-posix \
                    man-db \
@@ -29,9 +30,23 @@ RUN apt-get -qq update && \
                    strace \
                    telnet \
                    conntrack \
+                   mysql-client \ 
+	           wget \
                    tmux \ 
                    sudo
-                   
+
+# Install mongodb cli 
+RUN wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add - && \
+    echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.4.list && \
+    apt-get update && apt-get install mongodb-org-shell
+
+# Install mssql cli 
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - && \
+    curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list | sudo tee /etc/apt/sources.list.d/msprod.list && \
+    apt-get update && \ 
+    apt-get install -y unixodbc-dev && \ 
+    ACCEPT_EULA=Y apt-get -y install mssql-tools
+
 RUN groupadd --gid $USER_GID $USERNAME \
     && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
