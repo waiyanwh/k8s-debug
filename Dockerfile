@@ -30,7 +30,8 @@ RUN apt-get -qq update && \
                    strace \
                    telnet \
                    conntrack \
-                   mysql-client \ 
+                   mysql-client \
+                   postgresql-client  \
 	           wget \
                    tmux \ 
                    sudo
