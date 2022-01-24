@@ -47,9 +47,7 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - && \
     apt-get update && \ 
     apt-get install -y unixodbc-dev && \ 
     ACCEPT_EULA=Y apt-get -y install mssql-tools && \
-    echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile && \
-    echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc && \
-    source ~/.bashrc
+    echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc 
 
 RUN groupadd --gid $USER_GID $USERNAME \
     && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
