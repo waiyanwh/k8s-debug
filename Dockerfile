@@ -34,7 +34,7 @@ RUN apt-get -qq update && \
                    postgresql-client  \
 	           wget \
                    tmux \ 
-                   sudo \
+                   sudo 
 			
 
 # Install mongodb cli 
