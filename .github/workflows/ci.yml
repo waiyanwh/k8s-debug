@@ -40,6 +40,7 @@ jobs:
             waiyanwinhtain/k8s-debug:latest
           # build on feature branches, push only on main branch
           push: ${{ github.ref == 'refs/heads/master' }}
-
+          cache-from: type=registry,ref=waiyanwinhtain/k8s-debug:buildcache
+          cache-to: type=registry,ref=waiyanwinhtain/k8s-debug:buildcache,mode=max
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
