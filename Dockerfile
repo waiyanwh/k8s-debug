@@ -34,7 +34,8 @@ RUN apt-get -qq update && \
                    postgresql-client  \
 	           wget \
                    tmux \ 
-                   sudo
+                   sudo \
+			
 
 # Install mongodb cli 
 RUN wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add - && \
@@ -48,6 +49,8 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - && \
     apt-get install -y unixodbc-dev && \ 
     ACCEPT_EULA=Y apt-get -y install mssql-tools && \
     echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc 
+
+RUN wget https://github.com/mikefarah/yq/releases/download/v4.2.0/yq_linux_amd64 -o /usr/bin/yq && chmod +x /usr/bin/yq
 
 RUN groupadd --gid $USER_GID $USERNAME \
     && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
